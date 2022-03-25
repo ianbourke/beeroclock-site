@@ -23,12 +23,18 @@ const text = (function () {
     const phraseEl = document.querySelector('#phrase');
 
     if (tools.isPastBeerOClock(time)) {
-      answer.innerHTML = `<strong>It's well past beer o'clock where you're now, mate!</strong>`;
+      answer.innerHTML = `<strong>It's well past 🍺 o'clock for you, dude!</strong>`;
       phraseEl.innerText = 'Get your drink on! Cheers!';
     } else {
-      const { city, country, phrase, lang } = getCurrentTimeZoneData(time, timeZoneData);
-      answer.innerHTML = `<strong>It's beer o'clock in <a role="link" href="${getGoogleMapsLink(city, country)}" target="_blank" rel="noopener nofollow">${city}, ${country}</a></strong>.`;
-      phraseEl.innerText = `${phrase} (That's "Cheers!" in ${lang})!`;
+      const tzData = getCurrentTimeZoneData(time, timeZoneData);
+      if (!tzData) {
+        answer.innerHTML = `<strong>No 🍻 for anyone right now 😭</strong>`;
+      } else {
+        const { city, country, phrase, lang } = tzData;
+        answer.innerHTML = `<strong>Your friends in <a role="link" href="${getGoogleMapsLink(city, country)}" target="_blank" rel="noopener nofollow">${city}, ${country}</a> are drinking 🍻 right now!</strong>.`;
+        const suffix = phrase === 'Cheers!' ? '' : `(That's "Cheers!" in ${lang})`;
+        phraseEl.innerText = `${phrase} ${suffix}`;
+      }
     }
   }
 

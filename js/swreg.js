@@ -1,9 +1,0 @@
-const initServiceWorker = (function () {
-  return function init() {
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js')
-      });
-    }
-  };
-})();

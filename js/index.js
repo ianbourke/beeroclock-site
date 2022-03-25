@@ -1,4 +1,4 @@
-initServiceWorker();
+// initServiceWorker();
 
 const { initialTime, timeZoneData } = initData();
 
